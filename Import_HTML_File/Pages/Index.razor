@@ -1,0 +1,27 @@
+﻿@page "/"
+
+@using System.IO; 
+@using Syncfusion.Blazor.RichTextEditor 
+ 
+<SfRichTextEditor @bind-Value="@HtmlString"> 
+    <p>Rich Text Editor allows to insert images from online source as well as local computer where you want to insert the image in your content.</p> 
+    <p><b>Get started Quick Toolbar to click on the image</b></p> 
+    <p>It is possible to add custom style on the selected image inside the Rich Text Editor through quick toolbar.</p> 
+</SfRichTextEditor> 
+ 
+@code { 
+    private string HtmlString { get; set; } 
+    private string PathToHTMLFile = Path.GetFullPath(Directory.GetCurrentDirectory() + @"\wwwroot\HtmlFiles\HtmlTest.html"); 
+    protected override void OnInitialized() 
+    { 
+        using (FileStream fs = File.Open(PathToHTMLFile, FileMode.Open, FileAccess.ReadWrite)) 
+        { 
+            using (StreamReader sr = new StreamReader(fs)) 
+            {
+                // Importing values from HTML file.
+
+                HtmlString = sr.ReadToEnd(); 
+            } 
+        } 
+    } 
+} 
